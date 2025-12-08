@@ -1,0 +1,5 @@
+* Emacs Configuration
+This is my GNU Emacs configuration. The version on my GitLab is deprecated in favor of this one. The are very similar right now, but I will continue to maintain and add new features to this one.
+
+* Features
+- Everything I need :)
