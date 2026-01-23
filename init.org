@@ -60,14 +60,18 @@ Look at all this yucky stuff, get rid of it!
 I want my font!!!!!!
 
 #+begin_src elisp
-(defcustom fixed-width-desired-font "Terminess Nerd Font Mono"
+(defcustom fixed-width-desired-font "Maple Mono CN"
   "Fixed width font."
   :type 'string)
 
+(defcustom variable-width-desired-font "Open Sans"
+  "Variable width font."
+  :type 'string)
+
 (defun pm/apply-fonts ()
-  (set-face-attribute 'default nil :font fixed-width-desired-font :height 130 :weight 'regular)
-  (set-face-attribute 'fixed-pitch nil :font fixed-width-desired-font :height 130 :weight 'regular)
-  (set-face-attribute 'variable-pitch nil :font "Open Sans" :height 130 :weight 'regular)
+  (set-face-attribute 'default nil :font fixed-width-desired-font :height 165 :weight 'thin)
+  (set-face-attribute 'fixed-pitch nil :font fixed-width-desired-font :height 165 :weight 'thin)
+  (set-face-attribute 'variable-pitch nil :font variable-width-desired-font :height 165 :weight 'thin)
   (set-face-attribute 'font-lock-comment-face nil :slant 'italic)
   (set-face-attribute 'font-lock-keyword-face nil :slant 'italic))
 
@@ -950,7 +954,7 @@ What if I wanna be pretty too?
   :config
   (setq doom-themes-enable-bold t
         doom-themes-enable-italic t)
-  (load-theme 'doom-gruvbox t))
+  (load-theme 'doom-nord t))
 #+end_src
 
 ** Doom Modeline
@@ -1577,6 +1581,15 @@ LaTeX previews are super tiny by default, lets make them bigger.
 (use-package citeproc)
 #+end_src
 
+* Hugo
+[[https://github.com/gohugoio/hugo][hugo]] can be used with [[https://github.com/jackyzha0/quartz][quartz]] to create a personal searchable wiki out of =org-roam= notes
+
+#+begin_src elisp
+(use-package ox-hugo
+  :config
+  (setq org-hugo-section "untagged"))
+#+end_src
+
 * Blimpy :func:
 blimpy
 
@@ -1602,4 +1615,38 @@ blimpy
                                          org
                                          tetris
                                          snake)))
+#+end_src
+
+* EXWM
+#+begin_src emacs-lisp :tangle no
+(use-package dmenu)
+
+(use-package exwm
+  :after dmenu
+  :config (setq exwm-input-global-keys `(([?\s-r] . exwm-reset)
+					 ([?\s-h] . windmove-left)
+					 ([?\s-j] . windmove-down)
+					 ([?\s-k] . windmove-up)
+					 ([?\s-l] . windmove-right)
+					 
+					 ([?\s-e] . dmenu)))
+  
+					 ;; ([?\s-a] . (exwm-workspace-switch 0))
+					 ;; ([?\s-s] . (exwm-workspace-switch 1))
+					 ;; ([?\s-d] . (exwm-workspace-switch 2))
+					 ;; ([?\s-f] . (exwm-workspace-switch 3))
+					 ;; ([?\s-u] . (exwm-workspace-switch 4))
+					 ;; ([?\s-i] . (exwm-workspace-switch 5))
+					 ;; ([?\s-o] . (exwm-workspace-switch 6))
+					 ;; ([?\s-p] . (exwm-workspace-switch 7)))
+					 
+  (setq exwm-input-prefix-keys '(?\C-x
+				 ?\C-u
+				 ?\C-h
+				 ?\M-x
+				 ?\M-`
+				 ?\M-&
+				 ?\M-:))
+  (setq exwm-workspace-number 8)
+  (exwm-wm-mode))
 #+end_src
