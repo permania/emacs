@@ -5,7 +5,7 @@
 
 * Early Init
 :PROPERTIES:
-:header-args: :tangle ~/.emacs.d/early-init.el
+:header-args: :tangle early-init.el
 :END:
 
 ** GC Cons :func:
