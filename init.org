@@ -79,7 +79,7 @@ I want my font!!!!!!
   "Fixed width font."
   :type 'string)
 
-(defcustom variable-width-desired-font "Open Sans"
+(defcustom variable-width-desired-font "Tahoma Regular"
   "Variable width font."
   :type 'string)
 
