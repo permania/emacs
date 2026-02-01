@@ -39,6 +39,16 @@ This code disables the garbage collector while Emacs is loading and leads to fas
   (add-hook 'elpaca-after-init-hook '+reset-init-values))
 #+end_src
 
+** Redirect Eln-Cache
+#+begin_src elisp
+(when (fboundp 'startup-redirect-eln-cache)
+  (startup-redirect-eln-cache
+   (convert-standard-filename
+    (expand-file-name "emacs/eln-cache/"
+                      (or (getenv "XDG_CACHE_HOME")
+                          "~/.cache")))))
+#+end_src
+
 ** Package :func:
 =Elpaca= doesn't play with =package.el=.
 
