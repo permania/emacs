@@ -50,8 +50,8 @@ This code disables the garbage collector while Emacs is loading and leads to fas
 
 (setq user-emacs-directory
       (expand-file-name "emacs/"
-                       (or (getenv "XDG_CONFIG_HOME")
-                           "~/.config")))
+                       (or (getenv "XDG_STATE_HOME")
+                           "~/.local/state/")))
 #+end_src
 
 ** Package :func:
