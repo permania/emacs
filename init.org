@@ -75,7 +75,7 @@ Look at all this yucky stuff, get rid of it!
 I want my font!!!!!!
 
 #+begin_src elisp
-(defcustom fixed-width-desired-font "Maple Mono CN"
+(defcustom fixed-width-desired-font "Mononoki Nerd Font Mono"
   "Fixed width font."
   :type 'string)
 
