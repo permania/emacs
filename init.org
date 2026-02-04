@@ -1304,6 +1304,15 @@ It highlights TODO comments!
           ("DEPRECATED" font-lock-doc-face bold))))
 #+end_src
 
+** ENVRC
+Add =direnv= support to Emacs, works great with flakes!
+
+#+begin_src elisp
+(use-package envrc
+  :config
+  (envrc-global-mode)
+#+end_src
+
 ** Misc
 Stuff that doesn't fit into other categories..
 
