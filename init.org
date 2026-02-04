@@ -939,7 +939,7 @@ What if I wanna be pretty too?
   :config
   (setq doom-themes-enable-bold t
         doom-themes-enable-italic t)
-  (load-theme 'doom-gruvbox t))
+  (load-theme 'doom-nord t))
 #+end_src
 
 ** Doom Modeline
@@ -1310,7 +1310,7 @@ Add =direnv= support to Emacs, works great with flakes!
 #+begin_src elisp
 (use-package envrc
   :config
-  (envrc-global-mode)
+  (envrc-global-mode))
 #+end_src
 
 ** Misc
