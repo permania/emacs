@@ -311,7 +311,6 @@ These are not all-encompassing! I use a mix of leader keys and conventional bind
    "t" '(:ignore t :wk "toggle")
    "t l" '(display-line-numbers-mode :wk "Toggle Line Numbers")
    "t t" '(visual-line-mode :wk "Toggle Word Wrap")
-   "t v" '(vterm-toggle :wk "Toggle vterm")
    "t o" '(treemacs :wk "Toggle Treemacs")
    "t n" '(notmuch :wk "Open notmuch")
    "t T" '(consult-theme :wk "Load Theme"))
@@ -1287,6 +1286,7 @@ I like programming, and programming likes me..
   (setq lsp-enable-dap-auto-configure t)
   (setq dap-gdb-debug-program '("rust-gdb" "-i" "dap")))
 #+end_src
+
 ** HL Todo
 It highlights TODO comments!
 
