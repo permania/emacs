@@ -859,7 +859,7 @@ I send my emails in Emacs
 
 ** Vars
 Make sure this is set so *password-store* will always work
-#+begin_src 
+#+begin_src elisp
 (setenv "PASSWORD_STORE_DIR" (expand-file-name "~/.local/share/password-store"))
 #+end_src
 
