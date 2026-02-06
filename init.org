@@ -857,6 +857,12 @@ I send my emails in Emacs
 (use-package totp)
 #+end_src
 
+** Vars
+Make sure this is set so *password-store* will always work
+#+begin_src 
+(setenv "PASSWORD_STORE_DIR" (expand-file-name "~/.local/share/password-store"))
+#+end_src
+
 * EPG
 #+begin_src elisp
 (setq auth-sources '("~/.authinfo.gpg")) 
