@@ -938,7 +938,7 @@ Doom has some nice packages, lets steal them!
 What if I wanna be pretty too?
 
 #+begin_src elisp
-(add-to-list 'custom-theme-load-path "~/.emacs.d/themes/")
+(add-to-list 'custom-theme-load-path "~/.local/share/emacs/themes/")
 
 (use-package doom-themes
   :config
