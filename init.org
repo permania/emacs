@@ -944,7 +944,7 @@ What if I wanna be pretty too?
   :config
   (setq doom-themes-enable-bold t
         doom-themes-enable-italic t)
-  (load-theme 'everforest-hard-dark t))
+  (load-theme 'doom-one t))
 #+end_src
 
 ** Doom Modeline
