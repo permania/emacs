@@ -84,8 +84,8 @@ I want my font!!!!!!
   :type 'string)
 
 (defun pm/apply-fonts ()
-  (set-face-attribute 'default nil :font fixed-width-desired-font :height 165 :weight 'thin)
-  (set-face-attribute 'fixed-pitch nil :font fixed-width-desired-font :height 165 :weight 'thin)
+  (set-face-attribute 'default nil :font fixed-width-desired-font :height 165 :weight 'regular)
+  (set-face-attribute 'fixed-pitch nil :font fixed-width-desired-font :height 165 :weight 'regular)
   (set-face-attribute 'variable-pitch nil :font variable-width-desired-font :height 165 :weight 'thin)
   (set-face-attribute 'font-lock-comment-face nil :slant 'italic)
   (set-face-attribute 'font-lock-keyword-face nil :slant 'italic))
