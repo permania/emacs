@@ -76,6 +76,7 @@ Look at all this yucky stuff, get rid of it!
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
 (setq visual-bell t)
+(setq warning-minimum-level :emergency)
 #+end_src
 
 ** Fonts :form:
@@ -583,12 +584,8 @@ I like my extra thingies... like =imenu=...
          ;; Minibuffer history
          :map minibuffer-local-map
          ("M-s" . consult-history)                 ;; orig. next-matching-history-element
-         ("M-r" . consult-history)                 ;; orig. previous-matching-history-element
-
-	 ;; Consult has org-mode support but it's not enabled by default, let's enable it.
-	 (:map org-mode-map
-              ("M-g i" . consult-org-heading)))
-
+         ("M-r" . consult-history))
+  
   ;; Enable automatic preview at point in the *Completions* buffer. This is
   ;; relevant when you use the default completion UI.
   :hook (completion-list-mode . consult-preview-at-point-mode)
@@ -635,6 +632,11 @@ I like my extra thingies... like =imenu=...
   ;; You may want to use `embark-prefix-help-command' or which-key instead.
   ;; (keymap-set consult-narrow-map (concat consult-narrow-key " ?") #'consult-narrow-help)
 )
+
+(with-eval-after-load 'org
+  (define-key org-mode-map
+              (kbd "M-g i") #'consult-org-heading))
+
 #+end_src
 
 *** Marginalia
