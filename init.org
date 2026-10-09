@@ -8,6 +8,13 @@
 :header-args: :tangle early-init.el
 :END:
 
+** Lexical Binding
+#+begin_src elisp
+;;; init.el -*- lexical-binding: t; -*-
+
+;;; Code:
+#+end_src
+
 ** GC Cons :func:
 This code disables the garbage collector while Emacs is loading and leads to faster init times.
 - Stolen from [[https://github.com/progfolio/.emacs.d/blob/master/init.org][profolio/.emacs.d]]
@@ -100,6 +107,13 @@ I want my font!!!!!!
               (pm/apply-fonts))))
 #+end_src
 
+
+* Lexical Binding
+#+begin_src elisp
+;;; init.el -*- lexical-binding: t; -*-
+
+;;; Code:
+#+end_src
 * Initialize Elpaca :func:
 =Elpaca= is an asynchronous package manager that is much faster than =package.el=.
 
@@ -1121,7 +1135,7 @@ Pretty icons are no good if you don't use them!
   (setq projectile-completion-system 'auto)
   (setq projectile-enable-caching 'persistent)
   (setq projectile-track-known-projects-automatically nil)
-  (projectile-global-mode 1)
+  (projectile-mode +1)
   (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
   (define-key projectile-command-map (kbd "U") 'projectile-remove-known-project))
 #+end_src
@@ -1366,15 +1380,6 @@ Emacs makes a lot of backup files, lets move them all to one folder.
 * Org :org:
 =org-mode= is its own beast, so it gets its own header!
 
-** Evil Org
-=org-mode= has no support for =evil-mode= keybinds by default, this sets some common ones
-
-#+begin_src elisp
-(use-package evil-org
-  :config
-  (require 'evil-org))
-#+end_src
-
 ** Load Org :func:
 =org-mode= forgets everything every time you close it, lets help it remember!
 
@@ -1412,6 +1417,15 @@ Emacs makes a lot of backup files, lets move them all to one folder.
       (sequence "BACKLOG(b)" "PLAN(p)" "FUTURE(f)" "READY(r)" "ACTIVE(a)" "REVIEW(v)" "WAIT(w@/!)" "HOLD(h)" "|" "COMPLETED(c)" "CANC(k@)"))))
 #+end_src
 
+** Evil Org
+=org-mode= has no support for =evil-mode= keybinds by default, this sets some common ones
+
+#+begin_src elisp
+(use-package evil-org :after org
+  :config
+  (require 'evil-org))
+#+end_src
+
 ** Org Options :func:
 Similar to [[*Load Org][Load Org]]
 
@@ -1430,7 +1444,7 @@ Similar to [[*Load Org][Load Org]]
 =toc-org= makes working with tables of contents in =org-mode= slightly easier.
 
 #+begin_src emacs-lisp
-(use-package toc-org
+(use-package toc-org :after org
   :commands toc-org-enable
   :init (add-hook 'org-mode-hook 'toc-org-enable))
 #+end_src
@@ -1447,7 +1461,7 @@ Similar to [[*Load Org][Load Org]]
 =org-mode= doesn't support everything out of the box, lets add some stuff!
 
 #+begin_src emacs-lisp
-(use-package ob-rust
+(use-package ob-rust :after org
   :config
   (org-babel-do-load-languages
    'org-babel-load-languages
@@ -1458,14 +1472,15 @@ Similar to [[*Load Org][Load Org]]
 =org-tempo= adds various snippet expansions for =org-mode= blocks
 
 #+begin_src emacs-lisp
-(require 'org-tempo)
+(with-eval-after-load 'org
+  (require 'org-tempo))
 #+end_src
 
 ** Reveal :func:
 =ox-reveal= allows you to export your =org-mode= document as a =reveal.hs= presentation!
 
 #+begin_src emacs-lisp
-(use-package ox-reveal :ensure t)
+(use-package ox-reveal :ensure t :after org)
 #+end_src
 
 ** Calfw :form:func:
@@ -1474,7 +1489,7 @@ Similar to [[*Load Org][Load Org]]
 #+begin_src emacs-lisp
 (use-package calfw)
 
-(use-package calfw-org)
+(use-package calfw-org :after org)
 
 ;;; THIS WAS PATCHED!
 ;;   :config
@@ -1503,7 +1518,7 @@ Similar to [[*Load Org][Load Org]]
 I use =org-modern=, like =org-bullets= but more than bullets!
 
 #+begin_src emacs-lisp
-(use-package org-modern
+(use-package org-modern :after org
   :config
   (global-org-modern-mode)
   (setq org-modern-list nil)
@@ -1520,8 +1535,7 @@ I use =org-modern=, like =org-bullets= but more than bullets!
 =org-super-agenda= prettifies the =org-agenda= view.
 
 #+begin_src emacs-lisp
-(use-package org-super-agenda
-  :after org
+(use-package org-super-agenda :after org
   :config
   (org-super-agenda-mode 1))
 #+end_src
@@ -1530,7 +1544,7 @@ I use =org-modern=, like =org-bullets= but more than bullets!
 Org Roam makes me smarter, I like my second brain!
 
 #+begin_src emacs-lisp
-(use-package org-roam
+(use-package org-roam :after org
   :init
   (setq org-roam-v2-ack t)
   :bind (:map org-mode-map
@@ -1549,19 +1563,19 @@ Org Roam makes me smarter, I like my second brain!
 Org Roam UI is pretty, and I feel even smarter than before!
 
 #+begin_src emacs-lisp
-(use-package org-roam-ui
-  :after org-roam
+(use-package org-roam-ui :after org-roam
   :config
   (setq org-roam-ui-sync-theme t
         org-roam-ui-follow t
         org-roam-ui-update-on-save t
         org-roam-ui-open-on-start t))
 #+end_src
+
 ** Org Export
 =org-mode= allows you to export documents to various formats, here we extend this feature
 
 #+begin_src elisp
-(use-package ox-typst
+(use-package ox-typst :after org
   :config
   (require 'ox-typst))
 #+end_src
@@ -1578,14 +1592,14 @@ LaTeX previews are super tiny by default, lets make them bigger.
 =LaTeX= needs =citeproc= to export =org-mode= documents.
 
 #+begin_src elisp
-(use-package citeproc)
+(use-package citeproc :after org)
 #+end_src
 
 * Hugo
 [[https://github.com/gohugoio/hugo][hugo]] can be used with [[https://github.com/jackyzha0/quartz][quartz]] to create a personal searchable wiki out of =org-roam= notes
 
 #+begin_src elisp
-(use-package ox-hugo
+(use-package ox-hugo :after org
   :config
   (setq org-hugo-section "untagged"))
 #+end_src
@@ -1604,7 +1618,8 @@ blimpy
 
 
 #+begin_src emacs-lisp
-(use-package evil-collection
+(use-package annalist :ensure t)
+(use-package evil-collection :ensure t :after annalist
   :config (mapc #'evil-collection-init '(dired
                                          calc
                                          notmuch
